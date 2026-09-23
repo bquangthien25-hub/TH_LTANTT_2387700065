@@ -2,6 +2,7 @@ services:
   - type: web
     name: securevalidator
     runtime: python
+    rootDir: Buoi1/Lab1
     buildCommand: "pip install -r requirements.txt"
     startCommand: "gunicorn app:app"
     plan: free
