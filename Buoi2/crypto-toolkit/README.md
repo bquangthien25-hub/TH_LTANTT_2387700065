@@ -167,15 +167,7 @@ Xử lý lỗi:
 |---|---|
 | ![Sai key](images/crypto-decrypt-wrong-key.png) | ![Thiếu mật khẩu](images/crypto-no-password.png) |
 
-## 8. Điều chỉnh so với tài liệu hướng dẫn
-
-| Nội dung | Tài liệu | Bài làm | Lý do |
-|---|---|---|---|
-| `requirements.txt` | Chỉ có `pytest` | Giữ nguyên | Các phụ thuộc chạy thực tế (`cryptography`, `argon2-cffi`, `flask`) khai báo trong `install_requires` của `setup.py`, cài qua `pip install -e .` |
-| `app_gui.py` | Chỉ có ô mật khẩu, 2 nút và 1 nhãn kết quả, không bắt lỗi | Thêm tiêu đề/nhãn hướng dẫn, key hiện trong ô `Entry` chỉ đọc, bắt `InvalidTag` (sai key) và trường hợp huỷ hộp thoại chọn file | Bản gốc crash khi nhập sai key hoặc bấm Cancel ở hộp thoại chọn file; key hiện trên `Label` nên không copy được |
-| File nhạy cảm khi test | — | `.enc`, `.dec`, `securecrypto/upload/` bị xoá khỏi repo trước khi push | Đây là dữ liệu sinh ra lúc chạy thử, không phải mã nguồn, và có thể chứa nội dung file thật của người dùng |
-
-## 9. Hạn chế và hướng cải tiến
+## 8. Hạn chế và hướng cải tiến
 
 | Hạn chế | Hậu quả quan sát được | Hướng cải tiến |
 |---|---|---|
@@ -184,7 +176,7 @@ Xử lý lỗi:
 | Không giới hạn kích thước file upload ở API | File lớn có thể làm cạn bộ nhớ khi `f.read()` toàn bộ vào RAM | Giới hạn `MAX_CONTENT_LENGTH` của Flask, đọc/ghi theo luồng (streaming) |
 | GUI lưu mật khẩu dạng `Entry(show="*")` nhưng không xoá khỏi bộ nhớ sau khi dùng | Khoá còn tồn tại trong biến Python lâu hơn cần thiết | Xoá biến ngay sau khi dùng, cân nhắc dùng `getpass` cho CLI thay vì tham số dòng lệnh (tham số dòng lệnh có thể lộ qua lịch sử shell/`ps`) |
 
-## 10. Tài liệu tham khảo
+## 9. Tài liệu tham khảo
 
 - [PyCA Cryptography Documentation](https://cryptography.io/en/latest/)
 - [OWASP Cryptographic Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)
