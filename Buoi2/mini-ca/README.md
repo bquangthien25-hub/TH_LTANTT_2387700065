@@ -58,6 +58,7 @@ mini-ca/
 │                       # check_revocation_status
 ├── demo.py            # Kịch bản demo qua console: chạy toàn bộ vòng đời
 ├── demo_ui.py          # Giao diện Tkinter cho cùng kịch bản
+├── images/             # Ảnh chụp giao diện Tkinter cho README
 ├── requirements.txt    # cryptography
 └── certs/              # Sinh ra khi chạy (đã .gitignore) – khoá riêng & chứng chỉ .pem
 ```
@@ -115,14 +116,39 @@ root_ca_cert.pem  root_ca_key.pem
 
 ### 7.4 Giao diện Tkinter (`demo_ui.py`)
 
-Không kiểm thử được trong môi trường chạy thử (không có `tkinter`/màn hình đồ hoạ); đã kiểm
-tra cú pháp bằng `py_compile` không lỗi. Cần chạy thử thủ công trên máy có giao diện.
+Chạy từ thư mục `mini-ca/` (Fedora cần cài thêm `sudo dnf install python3-tkinter`):
+
+```
+$ python3 demo_ui.py
+```
+
+| Giao diện ban đầu | Log sau khi chạy đủ 5 bước |
+|---|---|
+| ![Giao diện ban đầu](images/ca-empty.png) | ![Log sau 5 bước](images/ca-final-log.png) |
+
+Kết quả từng nút, bấm lần lượt theo thứ tự 1 → 2 → 3 → 5 → 4 → 5:
+
+| Bước | Kết quả |
+|---|---|
+| 1. Tạo Root & Intermediate CA | ![Tạo CA](images/ca-1-setup.png) |
+| 2. Phát hành User Cert | ![Phát hành cert](images/ca-2-issue.png) |
+| 3. Kiểm tra chuỗi cert | ![Chuỗi hợp lệ](images/ca-3-verify.png) |
+| 5. Kiểm tra trạng thái (trước khi thu hồi) | ![Hợp lệ](images/ca-5-ocsp-valid.png) |
+| 4. Thu hồi User Cert | ![Thu hồi](images/ca-4-revoke.png) |
+| 5. Kiểm tra trạng thái (sau khi thu hồi) | ![Đã thu hồi](images/ca-5-ocsp-revoked.png) |
+| Bấm 2 khi chưa tạo CA | ![Lỗi chưa tạo CA](images/ca-issue-before-setup.png) |
 
 ## 8. Điều chỉnh so với tài liệu hướng dẫn
 
-Cài đặt bám sát 100% mã nguồn và hướng dẫn trong tài liệu, không có thay đổi logic. Chỉ điều
-chỉnh: không đưa thư mục `certs/` (chứa khoá riêng) vào repo Git — đã thêm `certs/` và `*.pem`
-vào `.gitignore` theo đúng khuyến nghị bảo mật ở cuối bài (mục "xoá thông tin nhạy cảm").
+Cài đặt bám sát mã nguồn và hướng dẫn trong tài liệu, không có thay đổi logic CA. Các điều chỉnh:
+
+- Không đưa thư mục `certs/` (chứa khoá riêng) vào repo Git — đã thêm `certs/` và `*.pem`
+  vào `.gitignore` theo đúng khuyến nghị bảo mật ở cuối bài (mục "xoá thông tin nhạy cảm").
+- `demo_ui.py`: bỏ `self.geometry("450x350")` cố định. Trên màn hình có scaling (HiDPI), cửa
+  sổ 450x350 quá nhỏ làm 5 nút chức năng bị đẩy ra ngoài, không bấm được; giờ cửa sổ tự co giãn
+  theo nội dung.
+- `demo_ui.py`: log in `subject` của chứng chỉ thay vì `repr` của object
+  (`<...RSAPrivateKey object at 0x...>`), vừa dễ đọc vừa không in đối tượng khoá riêng ra log.
 
 ## 9. Hạn chế và hướng cải tiến
 

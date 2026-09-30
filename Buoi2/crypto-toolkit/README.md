@@ -70,6 +70,7 @@ crypto-toolkit/
 │   ├── cli.py              # CLI: securecrypto-cli --encrypt/--decrypt
 │   ├── api.py              # Flask API: POST /encrypt, /decrypt
 │   └── app_gui.py          # Giao diện Tkinter
+├── images/                 # Ảnh chụp giao diện Tkinter cho README
 ├── tests/
 │   ├── test_aes_utils.py
 │   ├── test_hash_utils.py
@@ -140,14 +141,38 @@ HUTECH University
 
 ### 7.4 Giao diện Tkinter
 
-Không kiểm thử được trong môi trường chạy thử (server không có màn hình đồ hoạ/`tkinter`);
-đã kiểm tra cú pháp bằng `py_compile` không lỗi. Cần chạy thử thủ công trên máy có giao diện.
+Chạy từ thư mục `crypto-toolkit/` (Fedora cần cài thêm `sudo dnf install python3-tkinter`):
+
+```
+$ python3 -m securecrypto.app_gui
+```
+
+Luồng mã hoá: nhập mật khẩu, bấm **Encrypt**, chọn file. Key base64 hiện ở ô kết quả (chỉ đọc,
+có thể copy) để dùng khi giải mã.
+
+| Giao diện ban đầu | Mã hoá thành công | Key base64 trả về |
+|---|---|---|
+| ![Giao diện ban đầu](images/crypto-empty.png) | ![Mã hoá thành công](images/crypto-encrypt-ok.png) | ![Key sau khi mã hoá](images/crypto-encrypt-result.png) |
+
+Luồng giải mã: dán key base64 vào ô nhập, bấm **Decrypt**, chọn file `.enc`. File
+`files/data.txt.dec` có nội dung đúng bằng file gốc (`HUTECH University`).
+
+| Giải mã thành công | Đường dẫn file `.dec` |
+|---|---|
+| ![Giải mã thành công](images/crypto-decrypt-ok.png) | ![Kết quả giải mã](images/crypto-decrypt-result.png) |
+
+Xử lý lỗi:
+
+| Sai key hoặc file hỏng | Chưa nhập mật khẩu |
+|---|---|
+| ![Sai key](images/crypto-decrypt-wrong-key.png) | ![Thiếu mật khẩu](images/crypto-no-password.png) |
 
 ## 8. Điều chỉnh so với tài liệu hướng dẫn
 
 | Nội dung | Tài liệu | Bài làm | Lý do |
 |---|---|---|---|
 | `requirements.txt` | Chỉ có `pytest` | Giữ nguyên | Các phụ thuộc chạy thực tế (`cryptography`, `argon2-cffi`, `flask`) khai báo trong `install_requires` của `setup.py`, cài qua `pip install -e .` |
+| `app_gui.py` | Chỉ có ô mật khẩu, 2 nút và 1 nhãn kết quả, không bắt lỗi | Thêm tiêu đề/nhãn hướng dẫn, key hiện trong ô `Entry` chỉ đọc, bắt `InvalidTag` (sai key) và trường hợp huỷ hộp thoại chọn file | Bản gốc crash khi nhập sai key hoặc bấm Cancel ở hộp thoại chọn file; key hiện trên `Label` nên không copy được |
 | File nhạy cảm khi test | — | `.enc`, `.dec`, `securecrypto/upload/` bị xoá khỏi repo trước khi push | Đây là dữ liệu sinh ra lúc chạy thử, không phải mã nguồn, và có thể chứa nội dung file thật của người dùng |
 
 ## 9. Hạn chế và hướng cải tiến

@@ -26,7 +26,7 @@ class CADemoApp(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Mini CA Demo UI")
-        self.geometry("450x350")
+        self.resizable(False, False)
         self.create_widgets()
 
     def create_widgets(self):
@@ -63,10 +63,10 @@ class CADemoApp(tk.Tk):
         global root_key, root_cert, inter_key, inter_cert
         self.log("Tạo Root CA...")
         root_key, root_cert = create_root_ca()
-        self.log(f"Root CA tạo xong: {root_key}, {root_cert}")
+        self.log(f"Root CA tạo xong: {root_cert.subject.rfc4514_string()}")
         self.log("Tạo Intermediate CA...")
         inter_key, inter_cert = create_intermediate_ca(root_key, root_cert)
-        self.log(f"Intermediate CA tạo xong: {inter_key}, {inter_cert}")
+        self.log(f"Intermediate CA tạo xong: {inter_cert.subject.rfc4514_string()}")
         messagebox.showinfo("Thông báo",
                              "Đã tạo Root và Intermediate CA thành công!")
 
