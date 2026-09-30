@@ -95,44 +95,21 @@ crypto-toolkit/
 
 ### 7.1 Unit test: 6/6 test đạt
 
-```
-$ pytest tests/ -v
-tests/test_aes_utils.py::test_encrypt_decrypt PASSED                     [ 16%]
-tests/test_hash_utils.py::test_hash_password_and_verify PASSED           [ 33%]
-tests/test_hash_utils.py::test_wrong_password_verification PASSED        [ 50%]
-tests/test_rsa_utils.py::test_rsa_keypair_generation PASSED              [ 66%]
-tests/test_rsa_utils.py::test_sign_and_verify PASSED                     [ 83%]
-tests/test_rsa_utils.py::test_verify_invalid_signature PASSED            [100%]
-============================== 6 passed in 0.54s ===============================
-```
+![Kết quả pytest](images/terminal-pytest.png)
 
 ### 7.2 CLI
 
-```
-$ securecrypto-cli --encrypt ./files/data.txt --password pass123
-Fu3JxhLf84qLexBIDI1ghA0SYczcyyA0iZFLN2P++GQ=
-
-$ securecrypto-cli --decrypt ./files/data.txt.enc --password "Fu3JxhLf84qLexBIDI1ghA0SYczcyyA0iZFLN2P++GQ="
-Decrypted. Output: ./files/data.txt.dec
-
-$ cat ./files/data.txt.dec
-HUTECH University
-```
+![Mã hoá và giải mã bằng CLI](images/terminal-cli.png)
 
 ### 7.3 REST API (Flask + Postman/`curl`)
 
-```
-$ curl -X POST http://127.0.0.1:5000/encrypt -F "file=@files/data.txt" -F "password=pass123"
-{"key":"3bI1+38/WLJA/LuIf2LyGf4rnYA7DegrM5rwm/OBtTk="}
+Khởi động server Flask:
 
-$ curl -X POST http://127.0.0.1:5000/decrypt \
-    -F "file=@securecrypto/upload/data.txt.enc" \
-    -F "password=3bI1+38/WLJA/LuIf2LyGf4rnYA7DegrM5rwm/OBtTk="
-{"output":".../securecrypto/upload/data.txt.dec"}
+![Server Flask](images/terminal-api-server.png)
 
-$ cat securecrypto/upload/data.txt.dec
-HUTECH University
-```
+Gọi API bằng `curl` từ một terminal khác:
+
+![Gọi /encrypt và /decrypt bằng curl](images/terminal-api-curl.png)
 
 | Endpoint | Input | Kết quả |
 |---|---|---|
