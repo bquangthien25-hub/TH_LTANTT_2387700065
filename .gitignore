@@ -5,3 +5,12 @@ __pycache__/
 .venv/
 gitsecure.log
 secure.log*
+
+# Buoi 2 - crypto-toolkit / mini-ca
+*.egg-info/
+.pytest_cache/
+certs/
+*.pem
+Buoi2/crypto-toolkit/files/*.enc
+Buoi2/crypto-toolkit/files/*.dec
+Buoi2/crypto-toolkit/securecrypto/upload/
