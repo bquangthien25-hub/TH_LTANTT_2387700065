@@ -14,3 +14,6 @@ certs/
 Buoi2/crypto-toolkit/files/*.enc
 Buoi2/crypto-toolkit/files/*.dec
 Buoi2/crypto-toolkit/securecrypto/upload/
+
+# Buoi 3 - secure-chat / netrecon
+.env

@@ -1,0 +1,151 @@
+INFO:root:[2026-10-07 12:57:56] Running service detection on 127.0.0.1:22,80,443
+INFO:root:[2026-10-07 12:57:56] Starting Nmap 7.92 ( https://nmap.org ) at 2026-10-07 12:57 +07
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00014s latency).
+
+PORT    STATE  SERVICE VERSION
+22/tcp  closed ssh
+80/tcp  closed http
+443/tcp closed https
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 0.27 seconds
+
+INFO:root:[2026-10-07 12:57:56] Mapping network...
+INFO:root:[2026-10-07 12:57:56] _gateway (10.49.137.37) at da:e2:1a:b5:c7:56 [ether] on wlp130s0
+
+INFO:root:[2026-10-07 12:58:08] Port 22 is open on scanme.nmap.org
+INFO:root:[2026-10-07 12:58:08] Port 80 is open on scanme.nmap.org
+INFO:root:[2026-10-07 12:58:08] Port 22 is open on scanme.nmap.org
+INFO:root:[2026-10-07 12:58:08] Port 80 is open on scanme.nmap.org
+INFO:root:[2026-10-07 12:58:09] Port 80 is open on scanme.nmap.org
+INFO:root:[2026-10-07 12:58:09] Port 22 is open on scanme.nmap.org
+INFO:root:[2026-10-07 12:58:16] Port 80 is open on scanme.nmap.org
+INFO:root:[2026-10-07 12:58:16] Port 22 is open on scanme.nmap.org
+INFO:root:[2026-10-07 12:58:17] Running service detection on scanme.nmap.org:21,22,80,443
+INFO:root:[2026-10-07 12:58:28] Starting Nmap 7.92 ( https://nmap.org ) at 2026-10-07 12:58 +07
+Nmap scan report for scanme.nmap.org (45.33.32.156)
+Host is up (0.32s latency).
+Other addresses for scanme.nmap.org (not scanned): 2600:3c01::f03c:91ff:fe18:bb2f
+
+PORT    STATE  SERVICE VERSION
+21/tcp  closed ftp
+22/tcp  open   ssh     OpenSSH 6.6.1p1 Ubuntu 2ubuntu2.13 (Ubuntu Linux; protocol 2.0)
+80/tcp  open   http    Apache httpd 2.4.7 ((Ubuntu))
+443/tcp closed https
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 11.11 seconds
+
+INFO:root:[2026-10-07 12:58:29] [scanme.nmap.org:22] Banner: SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.13
+INFO:root:[2026-10-07 12:58:32] Mapping network...
+INFO:root:[2026-10-07 12:58:32] _gateway (10.49.137.37) at da:e2:1a:b5:c7:56 [ether] on wlp130s0
+
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.49.137.138:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 526-913-116
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2026 12:58:35] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2026 12:59:27] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2026 12:59:27] "GET /static/style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2026 12:59:27] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:root:[2026-10-07 12:59:29] Port 22 is open on scanme.nmap.org
+INFO:root:[2026-10-07 12:59:29] Port 80 is open on scanme.nmap.org
+INFO:root:[2026-10-07 12:59:29] Running service detection on scanme.nmap.org:22,80,443
+INFO:root:[2026-10-07 12:59:41] Starting Nmap 7.92 ( https://nmap.org ) at 2026-10-07 12:59 +07
+Nmap scan report for scanme.nmap.org (45.33.32.156)
+Host is up (0.31s latency).
+Other addresses for scanme.nmap.org (not scanned): 2600:3c01::f03c:91ff:fe18:bb2f
+
+PORT    STATE  SERVICE VERSION
+22/tcp  open   ssh     OpenSSH 6.6.1p1 Ubuntu 2ubuntu2.13 (Ubuntu Linux; protocol 2.0)
+80/tcp  open   http    Apache httpd 2.4.7 ((Ubuntu))
+443/tcp closed https
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 12.00 seconds
+
+INFO:root:[2026-10-07 12:59:41] [scanme.nmap.org:22] Banner: SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.13
+INFO:root:[2026-10-07 12:59:44] Mapping network...
+INFO:root:[2026-10-07 12:59:44] _gateway (10.49.137.37) at da:e2:1a:b5:c7:56 [ether] on wlp130s0
+
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2026 12:59:46] "POST /scan HTTP/1.1" 200 -
+INFO:root:[2026-10-07 13:03:24] Running service detection on 127.0.0.1:22,80,443
+INFO:root:[2026-10-07 13:03:24] Starting Nmap 7.92 ( https://nmap.org ) at 2026-10-07 13:03 +07
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00014s latency).
+
+PORT    STATE  SERVICE VERSION
+22/tcp  closed ssh
+80/tcp  closed http
+443/tcp closed https
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 0.27 seconds
+
+INFO:root:[2026-10-07 13:03:24] Mapping network...
+INFO:root:[2026-10-07 13:03:24] _gateway (10.49.137.37) at da:e2:1a:b5:c7:56 [ether] on wlp130s0
+
+INFO:root:[2026-10-07 13:03:25] Port 22 is open on scanme.nmap.org
+INFO:root:[2026-10-07 13:03:25] Port 80 is open on scanme.nmap.org
+INFO:root:[2026-10-07 13:03:25] Port 22 is open on scanme.nmap.org
+INFO:root:[2026-10-07 13:03:25] Port 80 is open on scanme.nmap.org
+INFO:root:[2026-10-07 13:03:25] Running service detection on scanme.nmap.org:21,22,80,443
+INFO:root:[2026-10-07 13:03:36] Starting Nmap 7.92 ( https://nmap.org ) at 2026-10-07 13:03 +07
+Nmap scan report for scanme.nmap.org (45.33.32.156)
+Host is up (0.33s latency).
+Other addresses for scanme.nmap.org (not scanned): 2600:3c01::f03c:91ff:fe18:bb2f
+
+PORT    STATE  SERVICE VERSION
+21/tcp  closed ftp
+22/tcp  open   ssh     OpenSSH 6.6.1p1 Ubuntu 2ubuntu2.13 (Ubuntu Linux; protocol 2.0)
+80/tcp  open   http    Apache httpd 2.4.7 ((Ubuntu))
+443/tcp closed https
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 10.27 seconds
+
+INFO:root:[2026-10-07 13:03:37] [scanme.nmap.org:22] Banner: SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.13
+INFO:root:[2026-10-07 13:03:39] Mapping network...
+INFO:root:[2026-10-07 13:03:39] _gateway (10.49.137.37) at da:e2:1a:b5:c7:56 [ether] on wlp130s0
+
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.49.137.138:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 526-913-116
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2026 13:03:56] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2026 13:03:56] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2026 13:03:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:root:[2026-10-07 13:03:57] Port 80 is open on scanme.nmap.org
+INFO:root:[2026-10-07 13:03:57] Port 22 is open on scanme.nmap.org
+INFO:root:[2026-10-07 13:03:57] Running service detection on scanme.nmap.org:22,80,443
+INFO:root:[2026-10-07 13:04:07] Starting Nmap 7.92 ( https://nmap.org ) at 2026-10-07 13:03 +07
+Nmap scan report for scanme.nmap.org (45.33.32.156)
+Host is up (0.32s latency).
+Other addresses for scanme.nmap.org (not scanned): 2600:3c01::f03c:91ff:fe18:bb2f
+
+PORT    STATE  SERVICE VERSION
+22/tcp  open   ssh     OpenSSH 6.6.1p1 Ubuntu 2ubuntu2.13 (Ubuntu Linux; protocol 2.0)
+80/tcp  open   http    Apache httpd 2.4.7 ((Ubuntu))
+443/tcp closed https
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 9.79 seconds
+
+INFO:root:[2026-10-07 13:04:08] [scanme.nmap.org:22] Banner: SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.13
+INFO:root:[2026-10-07 13:04:10] Mapping network...
+INFO:root:[2026-10-07 13:04:10] _gateway (10.49.137.37) at da:e2:1a:b5:c7:56 [ether] on wlp130s0
+
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2026 13:04:11] "POST /scan HTTP/1.1" 200 -
