@@ -43,3 +43,7 @@ Giao diện web tại `http://localhost:5000/`:
 Kết quả phản hồi sau khi nhấn "Scan":
 
 ![Kết quả quét](images/10_web_result.png)
+
+Email thông báo kết quả gửi từ hệ thống:
+
+![Email kết quả](images/11_email.png)
