@@ -32,77 +32,9 @@ Bộ công cụ được kiểm thử bằng `unittest` và `pytest`, chạy đ�
 | Quản lý khóa bí mật | Khóa đọc từ biến môi trường `JWT_SECRET`, test dùng `secrets.token_urlsafe` |
 | Viết unit test cho mã bảo mật | 11 test cho web scanner, 13 test cho JWT tools |
 
-## 3. Công nghệ sử dụng
+## 3. Chức năng
 
-| Công nghệ | Vai trò |
-|---|---|
-| Python 3 (`re`, `urllib.parse`, `concurrent.futures`, `logging`) | Logic của các scanner và các công cụ JWT |
-| Flask | Giao diện web quét lỗ hổng và API Gateway |
-| requests | Gửi request tới URL cần quét và tới token endpoint của OAuth |
-| PyJWT | Mã hóa, giải mã, xác minh JWT |
-| unittest | Kiểm thử web scanner |
-| pytest | Kiểm thử JWT security tools |
-
-## 4. Luồng xử lý
-
-Web scanner:
-
-```mermaid
-flowchart LR
-    U["Người dùng<br/>nhập URL và chọn công cụ"] -->|POST /| A["Flask ui/app.py"]
-    A --> X["XSSScanner"]
-    A --> S["SQLInjectionTester"]
-    A --> C["CSRFDetector<br/>(HTML của trang đích)"]
-    A --> R["SSRFTester"]
-    X & S & C & R --> G["ReportGenerator<br/>bỏ qua csrf_protected"]
-    G --> T["result.html<br/>mô tả, rủi ro, gợi ý khắc phục"]
-    T --> U
-```
-
-JWT security tools:
-
-```mermaid
-flowchart LR
-    M["TokenManager"] -->|access + refresh token| G["APIGateway /protected"]
-    G -->|Bearer token| D{"jwt.decode<br/>HS256 + khóa JWT_SECRET"}
-    D -->|hợp lệ| OK["200 Access granted"]
-    D -->|sai| NO["401 Access denied"]
-    V["JWTValidator"] -->|alg, exp, iat, chữ ký| R["valid / reason / warnings"]
-    K["JWTCracker"] -->|wordlist| P["thử từng khóa song song"]
-    O["OAuthClient"] -->|code| TK["token endpoint"]
-```
-
-## 5. Cấu trúc thư mục
-
-```
-Buoi4/Bai4/
-├── README.md
-├── 03_pytest_jwt_security_tools.png   # Ảnh chụp kết quả pytest
-├── 04_web_ui_index.png                # Ảnh chụp giao diện quét
-├── 05_web_ui_ket_qua.png              # Ảnh chụp báo cáo quét
-├── web-vuln-scanner/
-│   ├── main.py                        # Chạy thử với dữ liệu mẫu
-│   ├── requirements.txt
-│   ├── scanners/                      # xss_scanner, sql_injection_tester, csrf_detector, ssrf_tester
-│   ├── report/report_generator.py
-│   ├── ui/app.py                      # Flask app
-│   ├── ui/templates/                  # index.html, result.html
-│   └── tests/                         # 11 unit test
-└── jwt-security-tools/
-    ├── main.py                        # Sinh token và chạy API Gateway
-    ├── pytest.ini
-    ├── requirements.txt
-    ├── api_gateway/gateway.py
-    ├── jwt_cracker/cracker.py
-    ├── jwt_validator/validator.py
-    ├── oauth_client/client.py
-    ├── token_manager/manager.py
-    └── tests/                         # 13 test
-```
-
-## 6. Chức năng
-
-### 6.1 web-vuln-scanner
+### 3.1 web-vuln-scanner
 
 | Thành phần | Hàm chính | Cách hoạt động | Kết quả |
 |---|---|---|---|
@@ -112,7 +44,7 @@ Buoi4/Bai4/
 | `SSRFTester` | `scan(url)` | Tìm 127.0.0.1, localhost, 10.x, 192.168.x, 172.16–31.x trong tham số | Loại SSRF, risk High |
 | `ReportGenerator` | `generate(findings)` | Gom kết quả, bỏ qua `csrf_protected: True` | Danh sách lỗ hổng cho giao diện |
 
-### 6.2 jwt-security-tools
+### 3.2 jwt-security-tools
 
 | Thành phần | Hàm chính | Cách hoạt động |
 |---|---|---|
@@ -122,9 +54,9 @@ Buoi4/Bai4/
 | `TokenManager` | `generate_tokens`, `refresh_access_token`, `revoke_refresh_token` | Access token 15 phút, refresh token 24 giờ, mỗi token có `jti`, refresh token đã thu hồi không làm mới được |
 | `APIGateway` | `/protected` | Đọc header `Authorization: Bearer`, trả `Access granted` hoặc 401 |
 
-## 7. Kết quả thực hiện
+## 4. Kết quả thực hiện
 
-### 7.1 Unit test
+### 4.1 Unit test
 
 | Bộ test | Lệnh | Kết quả |
 |---|---|---|
@@ -133,7 +65,7 @@ Buoi4/Bai4/
 
 <img width="1394" height="444" alt="image" src="https://github.com/user-attachments/assets/0f6ef17e-9fb9-4c9d-9960-da10f2cb5ca8" />
 
-### 7.2 Chạy chương trình chính
+### 4.2 Chạy chương trình chính
 
 `web-vuln-scanner/main.py` quét một URL mẫu và in báo cáo. `jwt-security-tools/main.py` sinh token và chạy API Gateway tại cổng 5000:
 
@@ -145,7 +77,7 @@ curl -H "Authorization: Bearer <access_token>" http://127.0.0.1:5000/protected
 
 Kết quả: token hợp lệ trả về `{"message":"Access granted","user":"phuoc"}` (HTTP 200), token sai trả về `{"message":"Access denied"}` (HTTP 401).
 
-### 7.3 Giao diện web
+### 4.3 Giao diện web
 
 Chạy `python ui/app.py` trong `web-vuln-scanner`, mở `http://127.0.0.1:5000/` để nhập URL và chọn công cụ:
 
@@ -155,7 +87,7 @@ Báo cáo quét trên trang mục tiêu có lỗ hổng phản chiếu. Mỗi m�
 
 <img width="2548" height="1159" alt="image" src="https://github.com/user-attachments/assets/c2ef15b7-7d29-4c38-aadf-68fb53f9a885" />
 
-## 8. Hạn chế và hướng cải tiến
+## 5. Hạn chế và hướng cải tiến
 
 | Hạn chế | Hướng cải tiến |
 |---|---|
@@ -165,7 +97,7 @@ Báo cáo quét trên trang mục tiêu có lỗ hổng phản chiếu. Mỗi m�
 | CSRF chỉ kiểm tra có token hay không, chưa kiểm tra token có được xác thực ở server | Kiểm tra thêm token có thay đổi theo phiên và có được server xác minh |
 | Chưa kiểm tra OAuth với một authorization server thật | Thử với một nhà cung cấp OAuth hỗ trợ sandbox |
 
-## 9. Điều chỉnh so với tài liệu hướng dẫn
+## 6. Điều chỉnh so với tài liệu hướng dẫn
 
 | Nội dung | Tài liệu | Bài làm | Lý do |
 |---|---|---|---|
@@ -177,7 +109,7 @@ Báo cáo quét trên trang mục tiêu có lỗ hổng phản chiếu. Mỗi m�
 | Báo cáo | Chỉ mô tả và mức độ rủi ro | Thêm `remediation` cho từng lỗ hổng | Đề yêu cầu gợi ý khắc phục |
 | Payload SQLi | Có `'; DROP TABLE users;--` | Đã bỏ | Payload phá hủy không phù hợp để quét |
 
-## 10. Tài liệu tham khảo
+## 7. Tài liệu tham khảo
 
 - [OWASP Cross Site Scripting Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
 - [OWASP SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
