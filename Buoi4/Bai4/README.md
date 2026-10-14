@@ -78,14 +78,6 @@ Token hợp lệ trả về `Access granted`, token sai trả về HTTP 401.
 
 ## Kết quả chạy thử
 
-Unit test web scanner (11 tests OK):
-
-![Unit test web scanner](images/01_unittest_web_scanner.png)
-
-Chạy chương trình chính web scanner:
-
-![main.py web scanner](images/02_main_web_scanner.png)
-
 Unit test JWT security tools (13 passed):
 
 ![pytest JWT](images/03_pytest_jwt_security_tools.png)
@@ -97,11 +89,3 @@ Giao diện quét lỗ hổng:
 Báo cáo kết quả quét, có gợi ý khắc phục:
 
 ![Kết quả quét](images/05_web_ui_ket_qua.png)
-
-Chạy `main.py` JWT và sinh token:
-
-![Sinh token JWT](images/06_jwt_main_token.png)
-
-Xác thực API bằng JWT qua curl:
-
-![curl protected](images/07_curl_protected.png)
