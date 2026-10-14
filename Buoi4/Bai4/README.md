@@ -87,29 +87,7 @@ Báo cáo quét trên trang mục tiêu có lỗ hổng phản chiếu. Mỗi m�
 
 <img width="2548" height="1159" alt="image" src="https://github.com/user-attachments/assets/c2ef15b7-7d29-4c38-aadf-68fb53f9a885" />
 
-## 5. Hạn chế và hướng cải tiến
-
-| Hạn chế | Hướng cải tiến |
-|---|---|
-| SQLi và SSRF chỉ phát hiện payload có sẵn trong URL, không gửi request để so sánh phản hồi | Gửi payload, so sánh phản hồi với trang gốc, và dùng báo lỗi hoặc thời gian phản hồi để xác nhận |
-| XSS chỉ có 2 payload và chỉ phát hiện phản chiếu nguyên văn | Bổ sung payload theo ngữ cảnh (thuộc tính, JavaScript), kiểm tra XSS DOM-based |
-| Danh sách thu hồi refresh token nằm trong bộ nhớ, mất khi tiến trình dừng | Lưu danh sách thu hồi vào cơ sở dữ liệu |
-| CSRF chỉ kiểm tra có token hay không, chưa kiểm tra token có được xác thực ở server | Kiểm tra thêm token có thay đổi theo phiên và có được server xác minh |
-| Chưa kiểm tra OAuth với một authorization server thật | Thử với một nhà cung cấp OAuth hỗ trợ sandbox |
-
-## 6. Điều chỉnh so với tài liệu hướng dẫn
-
-| Nội dung | Tài liệu | Bài làm | Lý do |
-|---|---|---|---|
-| Khóa JWT | Viết cứng `secret = "supersecret"` trong `main.py` và test | Đọc từ `JWT_SECRET`, test dùng `secrets.token_urlsafe` | Khóa trong mã nguồn bị hook GitSecure chặn khi commit |
-| Chế độ debug Flask | `app.run(debug=True)` | Chỉ bật khi đặt `FLASK_DEBUG=1` | Debugger Werkzeug cho phép thực thi mã từ xa (Bandit B201, mức High) |
-| `requests.post` trong OAuth | Không có timeout | `timeout=10` | Bandit B113, tránh treo khi token endpoint không phản hồi |
-| `datetime.utcnow()` | Dùng hàm `utcnow` | `datetime.now(timezone.utc)` | `utcnow` đã deprecated trong Python 3.12 trở lên |
-| Thu hồi refresh token | Đề yêu cầu có | Thêm `revoke_refresh_token` và `jti` | Đề yêu cầu quản lý vòng đời token |
-| Báo cáo | Chỉ mô tả và mức độ rủi ro | Thêm `remediation` cho từng lỗ hổng | Đề yêu cầu gợi ý khắc phục |
-| Payload SQLi | Có `'; DROP TABLE users;--` | Đã bỏ | Payload phá hủy không phù hợp để quét |
-
-## 7. Tài liệu tham khảo
+## 5. Tài liệu tham khảo
 
 - [OWASP Cross Site Scripting Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
 - [OWASP SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
