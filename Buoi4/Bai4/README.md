@@ -80,7 +80,7 @@ Token hợp lệ trả về `Access granted`, token sai trả về HTTP 401.
 
 Unit test JWT security tools (13 passed):
 
-![pytest JWT](03_pytest_jwt_security_tools.png)
+
 
 Giao diện quét lỗ hổng:
 
