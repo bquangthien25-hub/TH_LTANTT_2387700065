@@ -5,7 +5,6 @@ Bài thực hành gồm hai bộ công cụ:
 - **web-vuln-scanner**: quét lỗ hổng XSS, SQL Injection, CSRF, SSRF và sinh báo cáo có gợi ý khắc phục.
 - **jwt-security-tools**: kiểm tra JWT, brute force khóa yếu, OAuth 2.0 client, quản lý vòng đời token và API Gateway có xác thực JWT.
 
-Báo cáo chi tiết: [BAO_CAO_BAI4.md](BAO_CAO_BAI4.md). Ảnh minh họa: [images/](images/).
 
 ## Yêu cầu
 
@@ -76,3 +75,33 @@ curl -H "Authorization: Bearer <access_token>" http://127.0.0.1:5000/protected
 ```
 
 Token hợp lệ trả về `Access granted`, token sai trả về HTTP 401.
+
+## Kết quả chạy thử
+
+Unit test web scanner (11 tests OK):
+
+![Unit test web scanner](images/01_unittest_web_scanner.png)
+
+Chạy chương trình chính web scanner:
+
+![main.py web scanner](images/02_main_web_scanner.png)
+
+Unit test JWT security tools (13 passed):
+
+![pytest JWT](images/03_pytest_jwt_security_tools.png)
+
+Giao diện quét lỗ hổng:
+
+![Giao diện web](images/04_web_ui_index.png)
+
+Báo cáo kết quả quét, có gợi ý khắc phục:
+
+![Kết quả quét](images/05_web_ui_ket_qua.png)
+
+Chạy `main.py` JWT và sinh token:
+
+![Sinh token JWT](images/06_jwt_main_token.png)
+
+Xác thực API bằng JWT qua curl:
+
+![curl protected](images/07_curl_protected.png)
