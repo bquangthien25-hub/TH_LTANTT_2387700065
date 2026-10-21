@@ -135,28 +135,3 @@ Kết quả các endpoint của Flask API:
 | `GET /api/memory` | `memory_leaks: "[]"`, `overflow_test: true` |
 | `GET /api/security` | `suspicious_calls: ["os.system", "eval", "exec"]` |
 | `POST /api/sandbox` | `stdout: "Hello Sandbox\n"`, `stderr: ""` |
-
-## 6. Điều chỉnh so với tài liệu hướng dẫn
-
-| Nội dung | Tài liệu | Bài làm | Lý do |
-|---|---|---|---|
-| Địa chỉ bind của Flask | `host="0.0.0.0"` | `host="127.0.0.1"` | `/api/sandbox` chạy shell command từ body của request. Nếu mở ra mạng, bất kỳ ai trong mạng cũng thực thi được lệnh trên máy. |
-| Số issue của file mẫu | 8 issue (`vulnerable_01`) và 4 issue (`vulnerable_02`) | 5 issue và 1 issue | File mẫu viết theo PEP 8 (hai dòng trống giữa các hàm) nên flake8 không báo E302 và E305. |
-| Cách gọi flake8 | Không nói rõ | Phải chạy khi venv đã được kích hoạt | `CodeQualityChecker` gọi `flake8` bằng tên lệnh, nên `flake8` phải có trong PATH. |
-
-## 7. Hạn chế
-
-- `ASTAnalyzer` chỉ phát hiện `eval()`. Trong `vulnerable_02.py` có `exec(code)` nhưng không được báo cáo.
-- `VulnPatternMatcher` chỉ bắt mật khẩu viết dạng `password = "..."`.
-- `SecurityBehaviorChecker` tìm chuỗi `os.system`, `eval`, `exec` trong chính file `security_behavior_checker.py`. Kết quả vì vậy không phản ánh hành vi thật của tiến trình đang chạy.
-- `MemoryAnalyzer.check_memory_leaks()` chỉ đọc `gc.garbage`, nên thường trả về danh sách rỗng.
-- Khi chạy trên Python 3.14, `jsonpickle` in ra `DeprecationWarning` về giá trị mặc định của `keys`. Kết quả không bị ảnh hưởng.
-
-## 8. Tài liệu tham khảo
-
-- [SARIF v2.1.0 – OASIS](https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html)
-- [Python `ast` module](https://docs.python.org/3/library/ast.html)
-- [psutil documentation](https://psutil.readthedocs.io/)
-- [Flask documentation](https://flask.palletsprojects.com/)
-- [flake8 documentation](https://flake8.pycqa.org/)
-- [sarif-om trên PyPI](https://pypi.org/project/sarif-om/)
