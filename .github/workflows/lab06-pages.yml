@@ -1,0 +1,49 @@
+name: Lab06 - Build and deploy Docusaurus
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "Buoi6/Lab06/pipeline-tutorial/**"
+      - ".github/workflows/lab06-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+defaults:
+  run:
+    working-directory: Buoi6/Lab06/pipeline-tutorial
+
+jobs:
+  build-job:                 # tương ứng build-job (stage build) trong .gitlab-ci.yml
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: Buoi6/Lab06/pipeline-tutorial/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4   # tương ứng artifacts: paths: build/
+        with:
+          path: Buoi6/Lab06/pipeline-tutorial/build
+
+  pages:                     # tương ứng job pages (stage deploy) trong .gitlab-ci.yml
+    needs: build-job
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
